@@ -10,18 +10,16 @@
 <div class="form">
 <h1>Registration</h1>
 	<form name="registration" action="include/registerValidator.php" method="post">	
-	<label>Firstname</label>
-	<input type="text" name="firstname" placeholder="Enter your firstname">
-	<label>Lastname</label>
-	<input type="text" name="lastname" placeholder="Enter your lastname">
+	<p><label>Username: </label><br/>
+	<input type="text" name="username" placeholder="Enter your firstname"><br/></p>
 	<p><label for="email">Email Address: </label><br/>
-	<input type="email" name="email" placeholder="Email Address" required /></p>
+	<input type="email" name="email" placeholder="Email Address" required /><br/></p>
 	<p><label for="contact">Phone number: </label><br/>
-	<input type="text" name="contact" placeholder="Phone number" required /></p>
+	<input type="text" name="contact" placeholder="Phone number" required /><br/></p>
 	<p><label for="password">Password: </label><br/>
-	<input type="password" name="password" placeholder="Password" required /></p>
+	<input type="password" name="password" placeholder="Password" required /><br/></p>
 	<p><label for="password">Retype Password: </label><br/>
-	<input type="password" name="Re-password" placeholder="Re-enter your password" required /></p>
+	<input type="password" name="Re-password" placeholder="Re-enter your password" required /><br/></p>
 	
 	<p><input type="reset" name="reset" value="Reset" /></p>
 	<p><input type="submit" name="submit" value="Register" /></p>

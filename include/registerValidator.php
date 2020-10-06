@@ -6,15 +6,14 @@
 		require 'dtb.php';
 
 		// obtain input value from form
-		$firstname = mysqli_escape_string($conn,$_POST['firstname']);
-		$lastname = mysqli_escape_string($conn,$_POST['lastname']);
+		$username = mysqli_escape_string($conn,$_POST['username']);
 		$email = mysqli_escape_string($conn,$_POST['email']);
 		$phoneNo = mysqli_escape_string($conn,$_POST['contact']); 
 		$password = mysqli_escape_string($conn,$_POST['password']);
 		$passwordRepeat = mysqli_escape_string($conn,$_POST['Re-password']);
 
-		// check if firstname, lastname, email, password and repeat password is empty
-		if(empty($firstname) || empty($lastname) || empty($email) || empty($phoneNo) || empty($password) ||empty($passwordRepeat)){
+		// check if username, email, password and repeat password is empty
+		if(empty($firstname) || empty($email) || empty($phoneNo) || empty($password) ||empty($passwordRepeat)){
 			header("Location: ../register.php?error=emptyfields&fname=".$firstname."&lname=".$lastname."&email=".$email);
 			exit(); //stop the scipt from running if all the fields are empty
 		}
