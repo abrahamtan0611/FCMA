@@ -1,0 +1,42 @@
+#loginform {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4%;
+    background-color: white;
+}
+
+#loginform label,
+#loginform .logininput {
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+
+#loginform #image {
+    margin-left: 20%;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+
+#loginform .logininput {
+    width: 90%;
+}
+
+#loginform .radiologininput {
+    width: auto;
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#login {
+    width: 90%;
+    margin: 5%;
+    background-color: blue;
+    padding: 3%;
+    border: 0;
+}
