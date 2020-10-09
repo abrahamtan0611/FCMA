@@ -34,7 +34,9 @@
 		</div>
 		<div id="title" class="row">
 			<div class="col-md-12">
-				<h1>Hot Sell!!!</h1>
+				<h1>Hot Sell!!!
+				<button type="button" class="btn btn-success btn-lg" onclick="location.href='edit_inventory.php'">Edit</button>
+				</h1>
 			</div>
 		</div>
 		<div id="article" class="row">
