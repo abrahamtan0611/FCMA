@@ -1,37 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8"/>
-	<meta name="author" content="Pass Task Team"/>
-	<meta name="description" content="Home Page"/>
-	<meta name="keywords" content="Food Ordering, Catering Service"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- pending to change -->
-	<link rel="stylesheet" href="Style/style.css" type="text/css"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>Food Edge</title>
-</head>
-<body>
+<?php
+	// start the session()
+	session_start();
+	require "Include/header.php";
+?>
 	<?php
-		include("dtb.php");
+		include("Include/dtb.php");
 		$sqlget = "SELECT * FROM inventorydb LIMIT 8";
 		$sqldata = mysqli_query($conn, $sqlget) or die("error getting data");
 		
 	?>
-	<div class="container-fluid">
-		<div id="header" class="row">
-			<div id="logo" class="col-md-2">
-				<p>logo</p>
-				<!-- put your logo here -->
-			</div>
-			<div id="nav" class="col-md-10">
-				<p>nav</p>
-				<!-- put your nav here -->
-			</div>
-		</div>
 		<div id="title" class="row">
 			<div class="col-md-12">
 				<h1>Hot Sell!!!

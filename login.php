@@ -1,87 +1,66 @@
-<?php echo '
-<!DOCTYPE html>
-<html>
-<title>Food Edge</title>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css"href="style.css">
-
-<body>
-
-<header>
-
+<?php
+  // start session
+  session_start();
+  require "Include/header.php";
+ ?>
+ 
+ <?php
+if (isset($_POST['login-btn'])){
+	require 'Include/dtb.php';
 	
-</header>
-<h1>Login Page</h1>';
-
-Function connect(){
-		$servername = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "fcms";
+	$username = $_POST['username'];
+	$password = $_POST['pwd'];
+	$type = 1;
 	
-		// Create connection
-		$conn = new mysqli($servername, $username, $password,$dbname);
-
-		// Check connection
-		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-		}
-		return $conn;
-		}
-	$conn = connect();
-
-
-
-		
-	echo'<form id="loginform" method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
-		<label for="username">Username: </label><br>
-		<input type="text" name="username" class="logininput"><br><br>
-    
-		<label for="password">Password: </label><br>
-		<input type="password" name="password" class="logininput"><br>
-    
-
-		<input type="submit" value="Login" id="login">
-		</form>
-</body>
-</html>';  
-/*
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	test_input($_POST["username"],$_POST["password"]);
-}
-
-function test_input($username,$password) {
-	$match = false;
-	$id = 0;
-	$username = trim($username);
-	$password = trim($password);
-	$conn = connect();
-	$sql = "SELECT * FROM userdb";
-	$result = $conn->query($sql);
-	if ($result->num_rows > 0) {
-		// output data of each row
-		while($row = $result->fetch_assoc()) {
-			if($row["username"]==$username || $row["password"]==$password){
-				$match = true;
-				$id = $row["id"];
-				$status = $row["status"];
+	$sql = "SELECT * FROM userdb WHERE username=?";
+	$stmt = mysqli_stmt_init($conn); // check if we can prepared the statement and connection
+	if(!mysqli_stmt_prepare($stmt,$sql)){
+		echo 'alert("SQL error!)';
+		exit();
+    }else{
+		mysqli_stmt_bind_param($stmt, "s", $username);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+		if($row = mysqli_fetch_assoc($result)){
+			$pwsCheck = password_verify($password, $row['password']);
+			// verify password
+			if ($pwsCheck == false){
+				header("Location: login.php?error=wrgpassword");
+				exit();
+			}else if ($pwsCheck == true){
+				session_start(); // start session
+				// store value in session
+				$_SESSION['uid'] = $row['customerID'];
+				$_SESSION['username'] = $row['username'];
+				
+				header("Location: index.php?login=success");
+				exit();
+			}else{
+				header("Location: login.php?error=wrgpassword");
+				exit();
 			}
-		}
-	} else {
-		echo "0 results";
-	}
-	if($match == true){
-		session_start();
-		$_SESSION["loggedin"] = true;
-		$_SESSION["username"] = $_POST["username"];
-		$_SESSION["loginid"] = $id;
-		$_SESSION["loginstatus"] = $status;
-		if($status == "admin"){
-			header("refresh: 2; url=login.php");
-		}else{
-			header("refresh: 2; url=homepage.php");
-		}
 		
+		}else{
+			header("Location: ../login.php?error=no-user");
+			exit();
+		}
 	}
-}?>
-*/
+}
+?>
+ <!-- HTML CODE -->
+ <div class="container">
+	 <form id="login" method="POST">
+		<div class="form-header">
+			<h3>Login</h3>
+			<!--<p>Please fill in the follwoing details</p> -->
+		</div>
+		<div class="form-line"></div>
+		<div class="inputs">
+			<input type="text" name="username" placeholder="Username" required />
+			<input type="password" name="pwd" placeholder="Password" required />
+			
+			<button type="submit" name="login-btn">LOGIN</button>
+			<!-- <a id="register-submit">SIGN UP</a> -->
+		</div>
+	</form>
+</div>
