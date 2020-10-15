@@ -115,6 +115,26 @@ function done_onclick(e)
 		
 }
 
+function displayOnlineBanking(){
+	document.getElementById("onlineBanking").style.display="block";
+	document.getElementById("qrCode").style.display="none";
+	document.getElementById("onDelivery").style.display="none";
+}
+
+function displayQrCode(){
+	document.getElementById("onlineBanking").style.display="none";
+	document.getElementById("qrCode").style.display="block";
+	document.getElementById("onDelivery").style.display="none";
+}
+
+function displayOnDelivery(){
+	document.getElementById("onlineBanking").style.display="none";
+	document.getElementById("qrCode").style.display="none";
+	document.getElementById("onDelivery").style.display="block";
+}
+
+
+
 var loadFile = function(event){
 	var image = document.getElementById('upload_img');
 	var image_content = document.getElementById('upload_content');
@@ -128,6 +148,7 @@ var loadFile = function(event){
 	image_content.style.display = "none";
 	browse.style.paddingTop = "20px";
 }
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {

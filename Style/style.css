@@ -313,3 +313,19 @@ input:-moz-placeholder {
 	padding-top: 50px;
 	padding-left: 15px;
 }
+
+#onlineBanking, #qrCode, #onDelivery{
+	display:none;
+}
+
+.bankIcon{
+	max-width: 60px;
+    max-height: 60px;
+	
+}
+
+#bankSelection{
+	text-align:center;
+}
+
+
