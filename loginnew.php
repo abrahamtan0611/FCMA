@@ -28,7 +28,7 @@
 		$servername = "localhost";
 		$username = "root";
 		$password = "";
-		$dbname = "fyp";
+		$dbname = "fcms";
 	
 		// Create connection
 		$conn = new mysqli($servername, $username, $password,$dbname);
@@ -56,7 +56,7 @@ function test_input($username,$password) {
 	$username = trim($username);
 	$password = trim($password);
 	$conn = connect();
-	$sql = "SELECT * FROM users";
+	$sql = "SELECT * FROM userdb";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		// output data of each row
@@ -77,7 +77,7 @@ function test_input($username,$password) {
 		$_SESSION["loginid"] = $id;
 		$_SESSION["loginstatus"] = $status;
 		if($status == "admin"){
-			header("refresh: 2; url=login.php");
+			header("refresh: 2; url=loginnew.php");
 		}else{
 			header("refresh: 2; url=homepage.php");
 		}
