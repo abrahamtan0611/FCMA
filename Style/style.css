@@ -315,17 +315,22 @@ input:-moz-placeholder {
 }
 
 #onlineBanking, #qrCode, #onDelivery{
-	display:none;
+	display:none;	
 }
 
 .bankIcon{
 	max-width: 60px;
     max-height: 60px;
-	
+	margin: 0 20px;
 }
 
-#bankSelection{
-	text-align:center;
+.main{
+	text-align: center;
+}
+
+#paymentContainer{
+	max-width: 25%;
+	margin: 10px auto;
 }
 
 
