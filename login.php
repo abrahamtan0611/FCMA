@@ -3,8 +3,8 @@
   session_start();
   require "Include/header.php";
  ?>
- 
- <?php
+
+<?php
 if (isset($_POST['login-btn'])){
 	require 'Include/dtb.php';
 	
@@ -47,20 +47,20 @@ if (isset($_POST['login-btn'])){
 	}
 }
 ?>
- <!-- HTML CODE -->
- <div class="container">
-	 <form id="login" method="POST">
-		<div class="form-header">
-			<h3>Login</h3>
-			<!--<p>Please fill in the follwoing details</p> -->
-		</div>
-		<div class="form-line"></div>
-		<div class="inputs">
-			<input type="text" name="username" placeholder="Username" required />
-			<input type="password" name="pwd" placeholder="Password" required />
-			
-			<button type="submit" name="login-btn">LOGIN</button>
-			<!-- <a id="register-submit">SIGN UP</a> -->
-		</div>
-	</form>
+<!-- HTML CODE -->
+<div class="container">
+    <form id="login" method="POST">
+        <div class="form-header">
+            <h3>Login</h3>
+            <!--<p>Please fill in the follwoing details</p> -->
+        </div>
+        <div class="form-line"></div>
+        <div class="inputs">
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="pwd" placeholder="Password" required />
+
+            <button type="submit" name="login-btn">LOGIN</button>
+            <!-- <a id="register-submit">SIGN UP</a> -->
+        </div>
+    </form>
 </div>
