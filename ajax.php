@@ -32,4 +32,43 @@
 		
 		echo "$title has been successfully updated";
 	}
+	
+	if (isset($_POST['orderid'])) {
+		include("Include/dtb.php");
+		$id = $_POST['orderid'];
+		$sql = "SELECT * From orderdb where orderID=$id";
+		$sqldata = mysqli_query($conn, $sql)or die(mysqli_error($conn));
+		$row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC);
+		$name = $row['orderID'];
+
+		$sql2 = "Delete From orderdb Where orderID =$id";
+		mysqli_query($conn, $sql2);
+
+		mysqli_close($conn);
+
+		echo "$name has been successfully deleted";
+	}
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
