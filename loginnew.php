@@ -55,7 +55,7 @@ function test_input($username,$password) {
 		session_start();
 		$_SESSION["loggedin"] = true;
 		$_SESSION["username"] = $_POST["username"];
-		$_SESSION["loginid"] = $customerID;
+		$_SESSION["uid"] = $customerID;
 		$_SESSION["loginstatus"] = $type;
 		if($type == "1" || $type == "2" || $type == "3"){
 			header("refresh: 0; url=index.php");
