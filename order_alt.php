@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="style/alt_style.css"/>
-</head>
-<body>
+<?php
+  // start session
+  session_start();
+  require "Include/header.php";
+ ?>
+ 
 <h2>Menu Example</h2>
 <!-- Trigger/Open The Modal -->
 <button id="myBtn">Make an Order</button>
@@ -16,19 +16,20 @@
     <span class="close">&times;</span>
 	<div id="details">
      <?php
-			include ("dtb.php");
-			$sql = "SELECT * From inventorydb where menuID=3";
+			include ("Include/dtb.php");
+			$mID = "4";
+			$custID = 6;
+			$sql = "SELECT * From inventorydb where menuID=$mID";
 			$sqldata = mysqli_query($conn, $sql);
 			$row = mysqli_fetch_array($sqldata,MYSQLI_ASSOC);
 			
 			if (isset ($_POST['quantity'])){
-				$mID = "3";
+				
 				$mquantity = mysqli_escape_string($conn, $_POST['quantity']);
 				$minstruction = mysqli_escape_string($conn, $_POST['instruction']);
-				echo"$mquantity";
 			
-			$sql_ins = $conn -> prepare ("INSERT INTO orderdb (menuID, quantity, instruction) VALUES(?, ?, ?)");
-			$sql_ins->bind_param("sss", $mID, $mquantity, $minstruction);
+			$sql_ins = $conn -> prepare ("INSERT INTO orderdb (customerID,menuID, quantity, instruction) VALUES(?, ?, ?,?)");
+			$sql_ins->bind_param("isss", $custID, $mID, $mquantity, $minstruction);
             $sql_ins->execute();
 			mysqli_close($conn);
 			}

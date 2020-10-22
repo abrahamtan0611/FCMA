@@ -14,85 +14,83 @@ if (isset($_POST['register-submit'])){
 	$password = $_POST['pwd'];
 	$passwordRpt = $_POST['pwd-repeat'];
 	$type = 1;
- 
+	
 	$sql = "SELECT email FROM userdb WHERE email=?";
 	$stmt = mysqli_stmt_init($conn); // check if we can prepared the statement and connection
 	if(!mysqli_stmt_prepare($stmt, $sql)){
-		echo 'alert("SQL error!)';
-		//header("Location: register.php?error=sqlerror");
-		exit();
+		echo '<script type="text/javascript">
+						alert("SQL error.");
+					</script>';
     }else{
 		mysqli_stmt_bind_param($stmt, "s",$email);
 		mysqli_stmt_execute($stmt);
 		mysqli_stmt_store_result($stmt);
 		$resultCheck = mysqli_stmt_num_rows($stmt); // check whether email exist or not
 		if($resultCheck > 0){
-        header("Location: register.php?error=emailtaken");
-        exit();
+        echo '<script type="text/javascript">
+						alert("Email is being taken or registered.");
+					</script>';
 		}else{
-			$sql = "INSERT INTO userdb (type, username, password, email, phoneNo) VALUES (?, ?, ?, ?, ?)";
+			if ($password !== $passwordRpt){
+				echo '<script type="text/javascript">
+						alert("Both password does not match. Please try again.");
+					</script>';
+			}else{
+				$sql = "INSERT INTO userdb (type, username, password, email, phoneNo) VALUES (?, ?, ?, ?, ?)";
 			$stmt = mysqli_stmt_init($conn);
 			if(!mysqli_stmt_prepare($stmt, $sql)){
-				echo 'alert("SQL error!")' ;
-				exit();
+				echo '<script type="text/javascript">
+						alert("SQL error.");
+					</script>';
 			}else{
 				// hash the password using bcrypt
 				$hashPwd = password_hash($password, PASSWORD_DEFAULT);
 				mysqli_stmt_bind_param($stmt, "issss",$type, $username, $hashPwd, $email, $phoneno);
 				mysqli_stmt_execute($stmt);
-				header("Location: login.php?register=success");
+				echo '<script type="text/javascript">
+					alert("Register Successful");
+					window.location = "login.php";
+				</script>';
 				exit();
-			}
+				}
+			}	
 		}
 	}
 	mysqli_stmt_close($stmt); // close the statement to save resources
 	mysqli_close($conn);  // close the connection to save resources
 }
 ?> 
- 
- 
- <!-- HTML CODE -->
- <div class="container">
-	 <form id="register" method="POST">
-		<div class="form-header">
-			<h3>Sign Up</h3>
-			<p>Please fill in the follwoing details</p>
+
+<!-- HTML CODE -->
+<div class="register-input-field">
+	<h3>Register</h3>
+	<form id="register" method="POST"> 
+		<div class="form-group">
+			<label>Username </label>
+			<label class="required">*</label>
+			<input type="text" class = "form-control" name="username" placeholder="Username" required />
 		</div>
-		<div class="form-line"></div>
-		<div class="inputs">
-			<input type="text" name="username" placeholder="Username" required />
-			<input type="email" name="email" placeholder="E-mail" required />
-			<input type="text" name="phoneno" placeholder="Phone number" required />
-			<input type="password" name="pwd" placeholder="Password" required />
-			<input type="password" name="pwd-repeat" placeholder="Retype Password" required />
-			
-			<button type="submit" name="register-submit">SIGN UP</button>
-			<!-- <a id="register-submit">SIGN UP</a> -->
+		<div class="form-group">
+			<label>Email Address</label>
+			<label class="required">*</label>
+			<input type="email" class = "form-control" name="email" placeholder="Email Address" required />
 		</div>
+		<div class="form-group">
+			<label>Phone Number </label>
+			<label class="required">*</label>
+			<input type="text" class = "form-control" name="phoneno" placeholder="Phone number" required />
+		</div>
+		<div class="form-group">
+			<label>Password </label>
+			<label class="required">*</label>
+			<input type="password" class = "form-control" name="pwd" placeholder="Password" required />
+		</div>
+		<div class="form-group">
+			<label>Retype Password </label>
+			<label class="required">*</label>
+			<input type="password" class = "form-control" name="pwd-repeat" placeholder="Retype Password" required />
+		</div>
+		<button type="submit" name="register-submit">Register</button>
+		<button type="reset" name="register-reset-btn">Reset</button>
 	</form>
 </div>
-
-
-	
- 
- <!--
- <div class="form">
-<h1>Registration</h1>
-	<form name="registration" action="include/registerValidator.php" method="post">	
-	<p><label>Username: </label><br/>
-	<input type="text" name="username" placeholder="Enter your firstname"><br/></p>
-	<p><label for="email">Email Address: </label><br/>
-	<input type="email" name="email" placeholder="Email Address" required /><br/></p>
-	<p><label for="contact">Phone number: </label><br/>
-	<input type="text" name="contact" placeholder="Phone number" required /><br/></p>
-	<p><label for="password">Password: </label><br/>
-	<input type="password" name="password" placeholder="Password" required /><br/></p>
-	<p><label for="password">Retype Password: </label><br/>
-	<input type="password" name="Re-password" placeholder="Re-enter your password" required /><br/></p>
-	
-	<p><input type="reset" name="reset" value="Reset" /></p>
-	<p><input type="submit" name="submit" value="Register" /></p>
-</form>
-</div>
--->
- 

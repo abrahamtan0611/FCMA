@@ -6,6 +6,14 @@ var btn = document.getElementById("UploadBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+function redirect(){
+	window.location="edit_inventory.php";
+}
+
+function redirectAltPage(){
+	window.location="order_alt.php";
+}
+
 // When the user clicks on the button, open the modal
 function btnOnclick(){
 	modal.style.display = "block";
@@ -15,7 +23,6 @@ function uploadMenu(){
 	var ftitle = document.getElementById("ftitle").value;
 	var fdesc = document.getElementById("fdesc").value;
 	var fprice = document.getElementById("fprice").value;
-
 }
 
 function myAjax(e)
@@ -24,6 +31,19 @@ function myAjax(e)
 		type: "POST",
 		url:'ajax.php',
 		data:{id:e},
+		success:function(html){
+			alert(html);
+			location.reload();
+		}
+	});
+}
+
+
+function deleteData(e){
+	$.ajax({
+		type: "POST",
+		url:'ajax.php',
+		data:{orderid:e},
 		success:function(html){
 			alert(html);
 			location.reload();
@@ -126,6 +146,7 @@ function displayQrCode(){
 	document.getElementById("qrCode").style.display="block";
 	document.getElementById("onDelivery").style.display="none";
 }
+
 
 function displayOnDelivery(){
 	document.getElementById("onlineBanking").style.display="none";

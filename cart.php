@@ -1,35 +1,60 @@
 <?php
+	 //start session
+	 session_start();
+	
+	if (!empty($_SESSION['uid'])){
+		$custId = $_SESSION['uid'];
+	}else{
+		echo '<script type="text/javascript">
+					alert("Invalid Session!");
+					window.location = "index.php";
+				</script>';
+		exit();
+	}
+
 	require 'Include/dtb.php';
-	$custId = 8;
+	$count = 1;
+	$tempSum = 0;
+	$price = 0;
+	$total = 0;
 
 	// display all information based on userID
 	$sql = "SELECT * FROM orderdb o INNER JOIN inventorydb i ON o.menuID = i.menuID WHERE o.customerID = ?";
 	$stmt = mysqli_stmt_init($conn);
 	if(!mysqli_stmt_prepare($stmt,$sql)){
-		echo 'alert("SQL errorrrr!)';
-		exit();
+		echo '<script type="text/javascript">
+						alert("SQL Error.");
+					</script>';
 	}else{
 		mysqli_stmt_bind_param($stmt, "s", $custId);
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
 		
 		require 'Include/header.php';
+		echo "<div class='cart-input-field'>";
+		echo "<h3>Cart</h3>";
 		echo "<table>";
-		echo "<tr><th>Product</th><th>Quantity</th><th>Instruction</th><th>Price</th></tr>";
+		echo "<tr><th>No.</th><th>Product</th><th>Quantity</th><th>Instruction</th><th>Price(RM)</th><th></th></tr>";
 		
 		while($row = mysqli_fetch_assoc($result)){	
 			echo "<tr><td>";
-			echo "<button type='button' id='".$row['orderID']."' onclick='deleteData(this.id)'>Delete</button>";
+			echo $count. ".";
 			echo "</td><td>";
 			echo $row['name'];
 			echo "</td><td>";
 			echo $row['quantity'];
-			echo "</td><td>";
+			echo "</td><td class='instruction'>";
 			echo $row['instruction'];
 			echo "</td><td>";
-			echo $row['price'];
+			echo number_format($row['price'],2,'.',',');
+			$tempSum = $row['price']*$row['quantity'];
+			$total += $tempSum;
+			echo "</td><td>";
+			echo "<button type='button' id='".$row['orderID']."' onclick='deleteData(this.id)'>Delete</button>";
 			echo "</td></tr>";
+			$count++;
 		}
+		echo "<tr><td></td><td></td><td></td><td id='total-styling'>Total:</td><td id='price-styling'>RM".number_format($total,2,'.',',')."</td></tr>";
 		echo "</table>";
 	}
 
@@ -45,7 +70,6 @@
 			echo '<script type="text/javascript">
 						alert("SQL Error.");
 					</script>';
-			exit();
 			}else{
 				mysqli_stmt_bind_param($stmt, "s", $custId);
 				mysqli_stmt_execute($stmt);
@@ -60,7 +84,9 @@
 						mysqli_stmt_bind_param($stmt, "ssss",$time, $date, $address, $custId);
 						mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-		
+						header("Location: payment.php");
+						$_SESSION['total'] = $total;
+						$_SESSION['count'] = $count;
 					}
 			
 			}
@@ -68,15 +94,11 @@
 			echo '<script type="text/javascript">
 						alert("Please fill in all field.");
 					</script>';
-			exit();
 		}
 		
 	}
 ?>
 
-
-
-<div class="profile-input-field">
 	<form id="updateProfile" method="POST">		
 		<div class="form-group">
 			<label>Time</label>
@@ -87,8 +109,8 @@
 			<input type="date" class="form-control" name="date" placeholder="Date"/>
 		</div>
 		<div class="form-group">
-			<label>Address</label>
-			<input type="text" class="form-control" name="address" placeholder="Address" />
+			<label>Address</label><br>
+			<textarea id="textarea-address" rows="4" name="address" placeholder="Address..."></textarea>
 		</div>
 		<div class="form-group">
 			<button type="submit" name="updateCart-submit" class="btn btn-primary">Purchase</button>

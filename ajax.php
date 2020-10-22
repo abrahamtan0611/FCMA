@@ -48,6 +48,11 @@
 
 		echo "$name has been successfully deleted";
 	}
+	
+	if(isset($_POST['menuID'])){
+		session_start();
+		$_SESSION['indexMenuID'] = $_POST['menuID'];
+	}
 ?>
 
 

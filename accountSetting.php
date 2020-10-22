@@ -22,7 +22,6 @@
 		echo '<script type="text/javascript">
 						alert("SQL Error.");
 					</script>';
-		exit();
 	}else{
 		mysqli_stmt_bind_param($stmt, "s", $custId);
 		mysqli_stmt_execute($stmt);
@@ -72,7 +71,6 @@
 			echo '<script type="text/javascript">
 						alert("SQL Error.");
 					</script>';
-			exit();
 		}else{
 			mysqli_stmt_bind_param($stmt, "s", $email);
 			mysqli_stmt_execute($stmt);
@@ -102,6 +100,7 @@
 						echo '<script type="text/javascript">
 							alert("Account details are sucessfully updated.");
 						</script>';
+						exit();
 					}
 				}
 			}
@@ -113,8 +112,8 @@
 <?php
 	require 'Include/header.php';
 ?>
-<h1>Update Profile</h1>
 <div class="profile-input-field">
+	<h3> Update Profile</h3>
 	<form id="updateProfile" method="POST">
 		<div class="form-group">
 			<label>Username</label>
@@ -140,8 +139,7 @@
 			<label>Retype New Password</label>
 			<input type="password" class="form-control" name="rpwd" placeholder="Retype new password"/>
 		</div>
-		<div class="form-group">
-			<button type="submit" name="update-submit" class="btn btn-primary">Update</button>
-		</div>
+		<button type="submit" name="update-submit" class="btn btn-primary">Update</button>
+		<button type="reset" name="update-reset" class="btn btn-primary">Reset</button>
 	</form>
 </div>
