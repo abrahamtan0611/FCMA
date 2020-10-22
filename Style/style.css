@@ -192,6 +192,15 @@ input[type=text], input[type=password], input[type=email]{
 	border: 1px solid #D3D3D3;
 }
 
+.form-group #status-msg{
+	margin-left: 20px;
+}
+
+
+.form-group #pending{
+	color: red;
+}
+
 
 /** ALAN **/
 #header{
