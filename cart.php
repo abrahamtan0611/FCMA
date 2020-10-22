@@ -44,13 +44,17 @@
 			echo "</td><td>";
 			echo $row['quantity'];
 			echo "</td><td class='instruction'>";
-			echo $row['instruction'];
+			if ($row['instruction'] == ""){
+				echo "-";
+			}else{
+				echo $row['instruction'];
+			}	
 			echo "</td><td>";
 			echo number_format($row['price'],2,'.',',');
 			$tempSum = $row['price']*$row['quantity'];
 			$total += $tempSum;
 			echo "</td><td>";
-			echo "<button type='button' id='".$row['orderID']."' onclick='deleteData(this.id)'>Delete</button>";
+			echo "<button type='button' name='delete-order-btn'".$row['orderID']."' onclick='deleteData(this.id)'>Delete</button>";
 			echo "</td></tr>";
 			$count++;
 		}
@@ -84,7 +88,7 @@
 						mysqli_stmt_bind_param($stmt, "ssss",$time, $date, $address, $custId);
 						mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-						header("Location: payment.php");
+						header("Location: status.php");
 						$_SESSION['total'] = $total;
 						$_SESSION['count'] = $count;
 					}
@@ -113,8 +117,35 @@
 			<textarea id="textarea-address" rows="4" name="address" placeholder="Address..."></textarea>
 		</div>
 		<div class="form-group">
-			<button type="submit" name="updateCart-submit" class="btn btn-primary">Purchase</button>
+			<label>Payment Method</label>
+			<p id="btns">
+				<button type="button" id="onlineBankingBtn" onclick="displayOnlineBanking()">Online Banking</button>
+				<button type="button" id="qrCodeBtn" onclick="displayQrCode()">QR Code</button>
+				<button type="button" id="onDeliveryBtn" onclick="displayOnDelivery()">Cash on delivery</button>
+			</p>
+			<div id="onlineBanking">
+				<div id="bankDetails">
+					<p>Account Name: FoodEdge Food Catering<br/>
+						Bank Name: RHB Bank Berhad<br/>
+						Account Number: 1-23456-78901234
+					</p>
+					<p><b>Please email proof/receipt of payment to <a href="mailto:someone@example.com">FCMS</a>.</b></p>
+				</div>	
+			</div>
+			<div id="qrCode">
+				<!--qr code here-->
+				<img src="Images/qrcode.png" alt="QR CODE" width="100px" height="100px">
+			</div>
+			<div id="onDelivery">
+				<!--cash on delivery code here-->
+				<h1>Delivery test</h1>
+			</div>
+		</div>
+		<div class="form-group">
+			<button type="submit" name="updateCart-submit" class="btn btn-primary">Confirmed</button>
 			<button type="reset" name="reset-submit" class="btn btn-primary">Reset</button>
 		</div>
 	</form>
 </div>
+
+		
