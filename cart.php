@@ -129,20 +129,23 @@
 						Bank Name: RHB Bank Berhad<br/>
 						Account Number: 1-23456-78901234
 					</p>
-					<p><b>Please email proof/receipt of payment to <a href="mailto:someone@example.com">FCMS</a>.</b></p>
+					<p><b>Please email proof/receipt of payment to <a href="mailto:fcms@gmail.com">FCMS</a>.</b></p>
 				</div>	
 			</div>
 			<div id="qrCode">
 				<!--qr code here-->
+				<p><b>Wechat/ Sarawak Pay/ Boost</b></p>
+				<p><b>Please email proof/receipt of payment to <a href="mailto:fcms@gmail.com">FCMS</a>.</b></p>
 				<img src="Images/qrcode.png" alt="QR CODE" width="100px" height="100px">
+				
 			</div>
 			<div id="onDelivery">
 				<!--cash on delivery code here-->
-				<h1>Delivery test</h1>
+				<h1>Selected: Cash on delivery</h1>
 			</div>
 		</div>
 		<div class="form-group">
-			<button type="submit" name="updateCart-submit" class="btn btn-primary">Confirmed</button>
+			<button type="submit" name="updateCart-submit" class="btn btn-primary">Confirm</button>
 			<button type="reset" name="reset-submit" class="btn btn-primary">Reset</button>
 		</div>
 	</form>
