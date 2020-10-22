@@ -1,48 +1,50 @@
+*{
+	font-family: Aerial, sans-serif;
+}
 
 /** navigation bar **/
 .topnav {
-  overflow: hidden;
-  background-color: #333;
+	overflow: hidden;
+	background-color: #333;
 }
 
 .topnav a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
 }
 
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+	background-color: #ddd;
+	color: black;
 }
 
 .topnav a.active {
-  background-color: #2196F3;
-  color: white;
+	background-color: #2196F3;
+	color: white;
 }
 
 .topnav .login-container {
-  float: right;
+	float: right;
 }
 
 .topnav .login-container button {
 	padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 5px;
+	margin-top: 8px;
+	margin-right: 5px;
 	background-color: #555;
 	color: white;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-
+	font-size: 17px;
+	border: none;
+	cursor: pointer;
 }
 
 .topnav .login-container button:hover {
-  background: #ccc;
+	background: #ccc;
 }
 
 .header-form{
@@ -50,86 +52,136 @@
 	margin-right: 10px;
 }
 
-/** Sign Up form **/
-#register {
-    padding: 0px 25px 25px;
-    background: #fff;
-    box-shadow: 
-        0px 0px 0px 5px rgba( 255,255,255,0.4 ), 
-        0px 4px 20px rgba( 0,0,0,0.33 );
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    display: table;
-    position: static;
+.login-container .username-hover:hover{
+	color:white;
+	background-color: #333;
+	text-decoration: none;
+	
 }
 
-.container {
-    width: 406px;
-    max-width: 406px;
-    margin: 0 auto;
+/** FORM STYLING **/
+.login-input-field{
+	border: 3px groove #333;
+	border-radius: 10px;
+	width: 25em;
+	padding: .5em 2em 2em 2em;
+	margin:1em 5em 5em 3em;
+	height:20em;
+	margin-left: 40%;
 }
 
-#register .form-header {
-    margin-bottom: 20px;
+.register-input-field{
+	border: 3px groove #333;
+	border-radius: 10px;
+	width: 25em;
+	padding: .5em 2em 2em 2em;
+	margin:1em 5em 5em 3em;
+	height:37em;
+	margin-left: auto;
+	margin-right:auto;
 }
 
-#register .form-header h3 {
-    color: #333333;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 5px;
+.profile-input-field{
+	border: 3px groove #333;
+	border-radius: 10px;
+	width: 40em;
+	padding: .5em 2em 2em 2em;
+	margin:1em 5em 5em 3em;
+	height:41em;
+	margin-left: auto;
+	margin-right:auto;
 }
 
-#register .form-header p {
-    color: #8f8f8f;
-    font-size: 14px;
-    font-weight: 300;
+.cart-input-field{
+	border: 3px groove #333;
+	border-radius: 10px;
+	width: 60em;
+	padding: .5em 2em 2em 2em;
+	margin:1em 5em 5em 3em;
+	overflow: auto;
+	margin-left: auto;
+	margin-right:auto;
 }
 
-#register .form-line {
-    height: 1px;
-    background: #e8e8e8;
-    width: 406px;
-    margin: 0px -25px;
+.cart-input-field table{
+	width: 100%;
+	table-layout: auto;
+	border-collapse: collapse;
 }
 
-#register .inputs {
-    margin-top: 25px;
+.cart-input-field table th{
+	border-bottom: 1px solid #A9A9A9;
 }
 
-
-input::-webkit-input-placeholder {
-    color:    #b5b5b5;
+.cart-input-field table .instruction{
+	width: 100%;
 }
 
-input:-moz-placeholder {
-    color:    #b5b5b5;
+.cart-input-field table tr #total-styling{
+	text-align: right;
 }
 
-#register .inputs input[type=email], input[type=password], input[type="text"] {
-    background: #f5f5f5;
-    font-size: 13px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    border: none;
-    padding: 13px 10px;
-    width: 330px;
-    margin-bottom: 20px;
-    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
-    clear: both;
+.cart-input-field table tr #price-styling{
+	border-top: 1px solid #A9A9A9;
+	border-bottom: 1px solid #A9A9A9;
+	padding: 5px;
+	font-weight: bold;
 }
 
-#register .inputs input[type=email]:focus, input[type=password]:focus, input[type="text"]:focus {
-    background: #fff;
-    box-shadow: 0px 0px 0px 3px #fff38e, inset 0px 2px 3px rgba( 0,0,0,0.2 ), 0px 5px 5px rgba( 0,0,0,0.15 );
-    outline: none;   
+.cart-input-field table th,td{
+	padding: 15px;
+	text-align: center;
+}
+	
+h3{
+	text-align:center;
+	font-weight: bold;
 }
 
+.required{
+	color:red;
+}
 
+input[type=text], input[type=password], input[type=email]{
+	width: 100%;
+}
 
-/** **/
+.login-input-field button[type=submit], .register-input-field button[type=submit], .profile-input-field button[type=submit], .cart-input-field button[type=submit]{
+	background-color: #337ab7;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 7px 10px;
+	color: white;
+	font-size: 15px;
+	border: none;
+	font-weight: bold;
+}
+
+.login-input-field button[type=reset], .register-input-field button[type=reset], .profile-input-field button[type=reset], .cart-input-field button[type=reset]{
+	background-color: #e74c3c ;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 7px 10px;
+	color: white;
+	font-size: 15px;
+	border: none;
+	font-weight: bold;
+}
+
+.login-input-field button[type=submit]:hover,.register-input-field button[type=submit]:hover, .profile-input-field button[type=submit]:hover {
+	background: #295b87;
+}
+
+.login-input-field button[type=reset]:hover, .register-input-field button[type=reset]:hover, .profile-input-field button[type=reset]:hover{
+	background:  #922b21 ;
+}
+
+#textarea-address{
+	width: 100%;
+	border: 1px solid #D3D3D3;
+}
+
+/** ALAN **/
 #header{
 	height: 100px;
 	background-color: silver;
@@ -469,5 +521,8 @@ input[type=submit] {
 #orderCount, #priceCount{
 	float:right;
 }
+
+/** Table **/
+
 
 
