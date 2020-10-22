@@ -1,7 +1,15 @@
 
 <?php
-	// start the session()
+	// start the session
 	session_start();
+		
+	if (empty($_SESSION['uid'])){
+		echo '<script type="text/javascript">
+					alert("Invalid Session!");
+					window.location = "index.php";
+				</script>';
+		exit();
+	}
 	require "Include/header.php";
 	$total = $_SESSION['total'];
 	$count = $_SESSION['count'] -1 ;
