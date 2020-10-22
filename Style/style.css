@@ -132,6 +132,17 @@
 	padding: 15px;
 	text-align: center;
 }
+
+.cart-input-field button{
+	background-color: #e74c3c;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 7px 10px;
+	color: white;
+	font-size: 12px;
+	border: none;
+	font-weight: bold;
+}
 	
 h3{
 	text-align:center;
@@ -180,6 +191,7 @@ input[type=text], input[type=password], input[type=email]{
 	width: 100%;
 	border: 1px solid #D3D3D3;
 }
+
 
 /** ALAN **/
 #header{
