@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2020 at 02:22 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Generation Time: Nov 04, 2020 at 08:10 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -20,6 +21,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `fcms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chart_data`
+--
+
+CREATE TABLE `chart_data` (
+  `month` text NOT NULL,
+  `sale` int(50) NOT NULL,
+  `profit` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chart_data`
+--
+
+INSERT INTO `chart_data` (`month`, `sale`, `profit`) VALUES
+('september', 49, 25),
+('october', 33, 15);
 
 -- --------------------------------------------------------
 
