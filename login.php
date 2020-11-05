@@ -3,8 +3,8 @@
   session_start();
   require "Include/header.php";
  ?>
- 
- <?php
+
+<?php
 if (isset($_POST['login-btn'])){
 	require 'Include/dtb.php';
 	
@@ -58,21 +58,33 @@ if (isset($_POST['login-btn'])){
 ?>
 <!-- HTML CODE -->
 <div class="login-input-field">
-	<h3>Login</h3>
-	<form id="login" method="POST">
-		<div class="form-group">
-			<label> Username </label>
-			<label class="required">*</label>
-			<input type="text" class = "form-control" name="username" placeholder="Username" required />
-		</div>
-		<div class="form-group">
-			<label> Password </label>
-			<label class="required">*</label>
-			<input type="password" class = "form-control" name="pwd" placeholder="Password" required />
-		</div>
-		<button type="submit" name="login-btn">Log in</button>
-		<button type="reset" name="login-btn">Reset</button>
-	</form>
+    <h3>Login</h3>
+    <form id="login" method="POST">
+        <div class="form-group">
+            <label> Username </label>
+            <label class="required">*</label>
+            <input type="text" class="form-control" name="username" placeholder="Username" required />
+        </div>
+        <div class="form-group">
+            <label> Password </label>
+            <label class="required">*</label>
+            <input type="password" class="form-control" name="pwd" placeholder="Password" required />
+        </div>
+        <button type="submit" name="login-btn">Log in</button>
+        <button type="reset" name="login-btn">Reset</button>
+        <br>
+        <?php
+        if(isset($_GET["newpwd"])){
+            if($_GET["newpwd"] == "passwordUpdated"){
+                echo '<p class="signupsuccess">Your password has been reset!</p>';
+                
+            }
+            
+            
+        }
+        
+       ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="resetpw.php">Forgot your password?</a>
+    </form>
 </div>
 <!--
  <div class="container">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2020 at 08:10 AM
+-- Generation Time: Nov 05, 2020 at 12:01 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -93,6 +93,20 @@ CREATE TABLE `orderdb` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pwreset`
+--
+
+CREATE TABLE `pwreset` (
+  `pwResetId` int(11) NOT NULL,
+  `pwResetEmail` text NOT NULL,
+  `pwResetSelector` text NOT NULL,
+  `pwResetToken` longtext NOT NULL,
+  `pwResetExpires` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `userdb`
 --
 
@@ -110,7 +124,9 @@ CREATE TABLE `userdb` (
 --
 
 INSERT INTO `userdb` (`customerID`, `type`, `username`, `password`, `email`, `phoneNo`) VALUES
-(6, 1, 'alan', '$2y$10$vdYZ9V3gq2gbPD0cp/UVs.2Pye31P3vhPw/OI1xjIAujUFLrQWylG', 'alan@alan.com', '12345');
+(6, 1, 'alan', '$2y$10$vdYZ9V3gq2gbPD0cp/UVs.2Pye31P3vhPw/OI1xjIAujUFLrQWylG', 'alan@alan.com', '12345'),
+(7, 1, 'chad', '313', 'mrchandimawijebandara@gmail.com', '1343'),
+(8, 1, 'chad2', '$2y$10$Ad.9JkHQUli7mRXHKyhLfe2Nj6liqhaUawUQkLjYY48uycPNDjWBS', 'babychampion31415@gmail.com', '0168460657');
 
 --
 -- Indexes for dumped tables
@@ -127,6 +143,12 @@ ALTER TABLE `inventorydb`
 --
 ALTER TABLE `orderdb`
   ADD PRIMARY KEY (`orderID`);
+
+--
+-- Indexes for table `pwreset`
+--
+ALTER TABLE `pwreset`
+  ADD PRIMARY KEY (`pwResetId`);
 
 --
 -- Indexes for table `userdb`
@@ -151,10 +173,16 @@ ALTER TABLE `orderdb`
   MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `pwreset`
+--
+ALTER TABLE `pwreset`
+  MODIFY `pwResetId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `userdb`
 --
 ALTER TABLE `userdb`
-  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
