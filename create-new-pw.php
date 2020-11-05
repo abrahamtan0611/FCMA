@@ -36,7 +36,7 @@ require "Include/dtb.php";
         
         
         
-    }
+    
 ?>
 </div>
 
