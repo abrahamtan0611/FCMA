@@ -2,6 +2,7 @@
 	 //start session
 	 session_start();
 	
+	// check for session
 	if (!empty($_SESSION['uid'])){
 		$custId = $_SESSION['uid'];
 	}else{
@@ -12,56 +13,13 @@
 		exit();
 	}
 
-	require 'Include/dtb.php';
+	// variables
+	require_once 'Include/dtb.php';
 	$count = 1;
 	$tempSum = 0;
 	$price = 0;
 	$total = 0;
-
-	// display all information based on userID
-	$sql = "SELECT * FROM orderdb o INNER JOIN inventorydb i ON o.menuID = i.menuID WHERE o.customerID = ?";
-	$stmt = mysqli_stmt_init($conn);
-	if(!mysqli_stmt_prepare($stmt,$sql)){
-		echo '<script type="text/javascript">
-						alert("SQL Error.");
-					</script>';
-	}else{
-		mysqli_stmt_bind_param($stmt, "s", $custId);
-		mysqli_stmt_execute($stmt);
-		$result = mysqli_stmt_get_result($stmt);
-		
-		require 'Include/header.php';
-		echo "<div class='cart-input-field'>";
-		echo "<h3>Cart</h3>";
-		echo "<table>";
-		echo "<tr><th>No.</th><th>Product</th><th>Quantity</th><th>Instruction</th><th>Price(RM)</th><th></th></tr>";
-		
-		while($row = mysqli_fetch_assoc($result)){	
-			echo "<tr><td>";
-			echo $count. ".";
-			echo "</td><td>";
-			echo $row['name'];
-			echo "</td><td>";
-			echo $row['quantity'];
-			echo "</td><td class='instruction'>";
-			if ($row['instruction'] == ""){
-				echo "-";
-			}else{
-				echo $row['instruction'];
-			}	
-			echo "</td><td>";
-			echo number_format($row['price'],2,'.',',');
-			$tempSum = $row['price']*$row['quantity'];
-			$total += $tempSum;
-			echo "</td><td>";
-			echo "<button type='button' name='delete-order-btn'".$row['orderID']."' onclick='deleteData(this.id)'>Delete</button>";
-			echo "</td></tr>";
-			$count++;
-		}
-		echo "<tr><td></td><td></td><td></td><td id='total-styling'>Total:</td><td id='price-styling'>RM".number_format($total,2,'.',',')."</td></tr>";
-		echo "</table>";
-	}
-
+	
 	if (isset($_POST['updateCart-submit'])){
 		if (!empty($_POST['time']) && !empty($_POST['date']) && !empty($_POST['address'])){
 			$time = mysqli_escape_string($conn, $_POST['time']);
@@ -72,7 +30,7 @@
 			$stmt = mysqli_stmt_init($conn);
 			if (!mysqli_stmt_prepare($stmt, $sql)){
 			echo '<script type="text/javascript">
-						alert("SQL Error.");
+						alert("SQL statement Error.");
 					</script>';
 			}else{
 				mysqli_stmt_bind_param($stmt, "s", $custId);
@@ -82,73 +40,102 @@
 				$stmt = mysqli_stmt_init($conn);
 				if(!mysqli_stmt_prepare($stmt, $sql_add_record)){
 						echo '<script type="text/javascript">
-						alert("SQL Error.");
+						alert("SQL statement Error.");
 					</script>';
 					}else{
 						mysqli_stmt_bind_param($stmt, "ssss",$time, $date, $address, $custId);
 						mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-						header("Location: status.php");
-						$_SESSION['total'] = $total;
-						$_SESSION['count'] = $count;
-					}
-			
+						$_SESSION['address'] = $_POST['address'];
+						header('Location: payment.php');
+					}		
 			}
 		}else{
 			echo '<script type="text/javascript">
-						alert("Please fill in all field.");
-					</script>';
+					alert("Please fill in all field.");
+				</script>';
 		}
-		
 	}
+
+	// display all information based on userID
+	$sql = "SELECT * FROM orderdb o INNER JOIN inventorydb i ON o.menuID = i.menuID WHERE o.customerID = ?";
+	$stmt = mysqli_stmt_init($conn);
+	if(!mysqli_stmt_prepare($stmt,$sql)){
+		echo '<script type="text/javascript">
+						alert("SQL Error.");
+					</script>';
+	}else{
+		mysqli_stmt_bind_param($stmt, 's', $custId);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+		
+		require 'Include/header.php';
+		echo '<div class="cart-page">';
+		echo '<h3 class="cart-h3">My Cart</h3>';
+		echo '<table class="cart-table">';
+		echo '<tr><th>No</th><th>Product</th><th>Instruction</th><th class="quantity">Quantity</th><th>Subtotal (RM)</th></tr>';
+		
+		while($row = mysqli_fetch_assoc($result)){
+			echo '<tr><td>'.$count.'.</td>';
+			echo '<td><div class="cart-info">';
+			echo '<img src="data:image/jpg;charset=utf8;base64,';
+			echo base64_encode($row['image']);
+			echo '"/> ';
+			echo '<div><p>'.$row['name'].'</p>';
+			echo '<small>Price:RM'.number_format($row['price'],2,'.',',').'</small>';
+			echo '<br>';
+			echo '<button type="button" name="delete-order-btn"'.$row['orderID'].'" onclick="deleteData(this.id)">Remove</button>';
+			echo '</div></div></td class="instruction">';
+			if ($row['instruction'] == ''){
+				echo '<td>-</td>';
+			}else{
+				echo '<td >'.$row['instruction'].'</td>';
+			}
+			echo '<td class="quantity">'.$row['quantity'].'</td>';
+			$price = 0;
+			$tempSum = $row['price']*$row['quantity'];
+			$total += $tempSum;
+			echo '<td>';
+			echo number_format($tempSum,2,'.',',');
+			echo '</td></tr>';
+			$count++;
+		}
+		echo '</table>';
+		echo '<div class="total-table"><table><tr>';
+		echo '<td class="total-style">Subtotal:</td><td>';
+		echo 'RM '.number_format($total,2,'.',',');
+		echo '</td></tr><tr><td class="total-style">Discount:</td><td>';
+		echo 'RM -25.00';
+		echo '</td></tr><tr><td class="total-style">Total:</td><td>';
+		echo 'RM 100.00';
+		echo '</td></tr></table></div>';
+	}
+
+	
 ?>
 
-	<form id="updateProfile" method="POST">		
+	<form id="cart-form" method="POST">		
 		<div class="form-group">
-			<label>Time</label>
-			<input type="time" class="form-control" name="time" placeholder="Time" />
+			<label>Delivery Time (8am - 5pm)</label>
+			<label class="required">*</label>
+			<input type="time" class="form-control" name="time" min="08:00:00" max="17:00:00" placeholder="Select your delivery time..." />
 		</div>
 		<div class="form-group">
-			<label>Date</label>
-			<input type="date" class="form-control" name="date" placeholder="Date"/>
+			<label for="shootdate">Delivery Date</label>
+			<label class="required">*</label>
+			<input type="text" class="form-control" name="date" id="shootdate" placeholder="Select your delivery date..."/>
 		</div>
 		<div class="form-group">
-			<label>Address</label><br>
-			<textarea id="textarea-address" rows="4" name="address" placeholder="Address..."></textarea>
+			<label>Delivery Address</label>
+			<label class="required">*</label>
+			<textarea id="textarea-address" rows="4" name="address" placeholder="   Delivery Address..."></textarea>
 		</div>
 		<div class="form-group">
-			<label>Payment Method</label>
-			<p id="btns">
-				<button type="button" id="onlineBankingBtn" onclick="displayOnlineBanking()">Online Banking</button>
-				<button type="button" id="qrCodeBtn" onclick="displayQrCode()">QR Code</button>
-				<button type="button" id="onDeliveryBtn" onclick="displayOnDelivery()">Cash on delivery</button>
-			</p>
-			<div id="onlineBanking">
-				<div id="bankDetails">
-					<p>Account Name: FoodEdge Food Catering<br/>
-						Bank Name: RHB Bank Berhad<br/>
-						Account Number: 1-23456-78901234
-					</p>
-					<p><b>Please email proof/receipt of payment to <a href="mailto:fcms@gmail.com">FCMS</a>.</b></p>
-				</div>	
-			</div>
-			<div id="qrCode">
-				<!--qr code here-->
-				<p><b>Wechat/ Sarawak Pay/ Boost</b></p>
-				<p><b>Please email proof/receipt of payment to <a href="mailto:fcms@gmail.com">FCMS</a>.</b></p>
-				<img src="Images/qrcode.png" alt="QR CODE" width="100px" height="100px">
-				
-			</div>
-			<div id="onDelivery">
-				<!--cash on delivery code here-->
-				<h1>Selected: Cash on delivery</h1>
-			</div>
-		</div>
-		<div class="form-group">
-			<button type="submit" name="updateCart-submit" class="btn btn-primary">Confirm</button>
+			<button type="submit" name="updateCart-submit" class="btn btn-primary">Proceed to Checkout</button>
 			<button type="reset" name="reset-submit" class="btn btn-primary">Reset</button>
 		</div>
 	</form>
+	</div>
 </div>
-
-		
+</body>
+</html>
