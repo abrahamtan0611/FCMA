@@ -4,18 +4,15 @@
 <head>
     <title>Bar Chart of Sales/profit</title>
     <style>
-        #chart_div {
-            float: center;
-            width: 90%;
-            height: 90%
-        }
+
 
     </style>
 </head>
 
-<body>
-    <?Php
-require 'Include/dtb.php';// Database connection
+
+<?Php
+require 'Include/dtb.php';
+    require 'Include/header.php';
 
 if($stmt = $conn->query("SELECT month,sale,profit FROM chart_data")){
 
@@ -42,45 +39,45 @@ echo "<script>
 ?>
 
 
-    <div id="chart_div"></div>
-    <br><br>
+<div id="chart_div"></div>
+<br><br>
 
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        // Load the Visualization API and the corechart package.
-        google.charts.load('current', {
-            packages: ['corechart', 'bar']
-        });
-        google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {
+<script type="text/javascript">
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {
+        packages: ['corechart', 'bar']
+    });
+    google.charts.setOnLoadCallback(drawChart);
 
-            // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Month');
-            data.addColumn('number', 'Sale');
-            data.addColumn('number', 'Profit');
-            for (i = 0; i < my_2d.length; i++)
-                data.addRow([my_2d[i][0], parseInt(my_2d[i][1]), parseInt(my_2d[i][2])]);
-            var options = {
-                title: 'Food Edge Sales Profit',
-                hAxis: {
-                    title: 'Month',
-                    titleTextStyle: {
-                        color: '#333'
-                    }
-                },
-                vAxis: {
-                    minValue: 0
+    function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Month');
+        data.addColumn('number', 'Sale');
+        data.addColumn('number', 'Profit');
+        for (i = 0; i < my_2d.length; i++)
+            data.addRow([my_2d[i][0], parseInt(my_2d[i][1]), parseInt(my_2d[i][2])]);
+        var options = {
+            title: 'Food Edge Sales Profit',
+            hAxis: {
+                title: 'Month',
+                titleTextStyle: {
+                    color: '#333'
                 }
-            };
+            },
+            vAxis: {
+                minValue: 0
+            }
+        };
 
-            var chart = new google.charts.Bar(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        }
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
 
-    </script>
+</script>
 </body>
 
 </html>
