@@ -21,7 +21,7 @@
 <div class="testing">
 <h1>Feedbacks</h1>
 
-<table border="1px">
+<table>
 	<tr>
 		<th>Name</th>
 		<th>Feedbacks</th>
