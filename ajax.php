@@ -33,26 +33,36 @@
 		echo "$title has been successfully updated";
 	}
 	
-	if (isset($_POST['orderid'])) {
+	if (isset($_POST['orderid']) && isset($_POST['productid'])) {
 		include("Include/dtb.php");
-		$id = $_POST['orderid'];
-		$sql = "SELECT * From orderdb where orderID=$id";
+		$orderid = $_POST['orderid'];
+		$productid = $_POST['productid'];
+		$sql = "SELECT * From orderdetailsdb where orderID=$orderid and productID=$productid";
 		$sqldata = mysqli_query($conn, $sql)or die(mysqli_error($conn));
 		$row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC);
 		$name = $row['orderID'];
-
-		$sql2 = "Delete From orderdb Where orderID =$id";
+		
+		$sql2 = "Delete From orderdetailsdb Where orderID=$orderid and productID=$productid";
 		mysqli_query($conn, $sql2);
 
 		mysqli_close($conn);
 
-		echo "$name has been successfully deleted";
+		echo "Order has been successfully deleted";
 	}
 	
-	if(isset($_POST['product'])){
+	if (isset($_POST['editorderid']) && isset($_POST['editproductid'])) {
 		session_start();
-		$_SESSION['productID'] = $_POST['product'];
+		$_SESSION['editOrderID'] = $_POST['editorderid'];
+		$_SESSION['editProductID'] = $_POST['editproductid'];
+		
 	}
+	
+	if(isset($_POST['menuID'])){
+		session_start();
+		$_SESSION['indexMenuID'] = $_POST['menuID'];
+	}
+	
+	
 ?>
 
 
