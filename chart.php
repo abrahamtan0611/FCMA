@@ -15,11 +15,16 @@
 require 'Include/dtb.php';
     require 'Include/header.php';
     
-    //SELECT GETDATE() 'Today', FORMAT(GETDATE(),'MMMM') 'Month Name'
+    //SELECT GETDATE() 'Today', FORMAT(deliveryDate,'MMMM') 'Month Name'
     
-    //SELECT RIGHT(CONVERT(VARCHAR(8), GETDATE(), 3), 5) AS [MM/YY]
+    //SELECT RIGHT(CONVERT(VARCHAR(8), deliveryDate, 3), 5) AS [MM/YY]
+    
+    // FORMAT(deliveryDate,'MMyy')
+    
+    // mysql> SELECT DATE_FORMAT('2009-10-04 22:23:00', '%W %M %Y');
+    //outputs  -> 'Sunday October 2009'
 
-if($stmt = $conn->query("SELECT MONTHNAME(deliveryDate), (totalAmount-totalOriPrice) AS Profit, totalAmount AS Sales FROM orderdb WHERE paymentStatus != 'pending' GROUP BY MONTH(deliveryDate)")){
+if($stmt = $conn->query("SELECT DATE_FORMAT(deliveryDate, '%M %Y'), (totalAmount-totalOriPrice) AS Profit, totalAmount AS Sales FROM orderdb WHERE paymentStatus != 'pending' GROUP BY YEAR(deliveryDate), MONTHNAME(deliveryDate) ORDER BY deliveryDate")){
 
   //echo "No of records : ".$stmt->num_rows."<br>";
 $php_data_array = Array(); // create PHP array
