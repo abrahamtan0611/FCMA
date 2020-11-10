@@ -7,6 +7,7 @@
 
 
     </style>
+
 </head>
 
 
@@ -14,7 +15,7 @@
 require 'Include/dtb.php';
     require 'Include/header.php';
 
-if($stmt = $conn->query("SELECT month,sale,profit FROM chart_data")){
+if($stmt = $conn->query("SELECT MONTHNAME(deliveryDate), (totalAmount-totalOriPrice) AS Profit, totalAmount AS Sales FROM orderdb WHERE paymentStatus != 'pending' GROUP BY MONTH(deliveryDate)")){
 
   //echo "No of records : ".$stmt->num_rows."<br>";
 $php_data_array = Array(); // create PHP array
@@ -26,7 +27,7 @@ while ($row = $stmt->fetch_row()) {
    }
 //echo "</table>";
 }else{
-echo $connection->error;
+echo $conn->error;
 }
 //print_r( $php_data_array);
 // You can display the json_encode output here. 
@@ -44,6 +45,7 @@ echo "<script>
 
 
 
+
 <script type="text/javascript">
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {
@@ -56,8 +58,8 @@ echo "<script>
         // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Month');
-        data.addColumn('number', 'Sale');
         data.addColumn('number', 'Profit');
+        data.addColumn('number', 'Sales');
         for (i = 0; i < my_2d.length; i++)
             data.addRow([my_2d[i][0], parseInt(my_2d[i][1]), parseInt(my_2d[i][2])]);
         var options = {
@@ -69,6 +71,7 @@ echo "<script>
                 }
             },
             vAxis: {
+                title: 'Amount',
                 minValue: 0
             }
         };
