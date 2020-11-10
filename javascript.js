@@ -40,15 +40,59 @@ function myAjax(e)
 
 
 function deleteData(e){
+	var extract_orderid = e.substring(0, e.indexOf(":"));
+	var extract_productid = e.substring(e.indexOf(":")+1);
 	$.ajax({
 		type: "POST",
 		url:'ajax.php',
-		data:{orderid:e},
+		data:{orderid:extract_orderid, productid:extract_productid},
 		success:function(html){
 			alert(html);
 			location.reload();
 		}
 	});
+}
+
+//connect to the edit_order page from orderManagement
+function editSortOrder(e){
+	var extract_orderid = e.substring(e.indexOf("-")+1, e.indexOf(":"));
+	var extract_productid = e.substring(e.indexOf(":")+1);
+	$.ajax({
+		type: "POST",
+		url:'ajax.php',
+		data:{editorderid:extract_orderid, editproductid:extract_productid},
+		success:function(html){
+			window.location.href = 'edit_order.php';
+		}
+	});
+}
+
+function editOrder(e){
+	// Get the modal
+	var modal = document.getElementById("myModal");
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("myBtn");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks the button, open the modal 
+	btn.onclick = function() {
+	  modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	  modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+		modal.style.display = "none";
+	  }
+	}
 }
 
 function edit_onclick(e)
