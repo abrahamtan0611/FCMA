@@ -113,7 +113,7 @@
 	require 'Include/header.php';
 ?>
 <div class="profile-input-field">
-	<h3> Update Profile</h3>
+	<h3>Account Settings</h3>
 	<form id="updateProfile" method="POST">
 		<div class="form-group">
 			<label>Username</label>
@@ -143,3 +143,5 @@
 		<button type="reset" name="update-reset" class="btn btn-primary">Reset</button>
 	</form>
 </div>
+</body>
+</html>
