@@ -14,6 +14,10 @@
 <?Php
 require 'Include/dtb.php';
     require 'Include/header.php';
+    
+    //SELECT GETDATE() 'Today', FORMAT(GETDATE(),'MMMM') 'Month Name'
+    
+    //SELECT RIGHT(CONVERT(VARCHAR(8), GETDATE(), 3), 5) AS [MM/YY]
 
 if($stmt = $conn->query("SELECT MONTHNAME(deliveryDate), (totalAmount-totalOriPrice) AS Profit, totalAmount AS Sales FROM orderdb WHERE paymentStatus != 'pending' GROUP BY MONTH(deliveryDate)")){
 
