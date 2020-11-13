@@ -49,8 +49,22 @@ echo "<script>
 ?>
 
 
-<div id="chart_div"></div>
+<div id="chart_div">
+
+</div>
 <br><br>
+<!--
+<div id = "date">
+ <form method='post' action=''>
+     Start Date <input type='text' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo $_POST['fromDate']; ?>'>
+ 
+     End Date <input type='text' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
+
+     <input type='submit' name='but_search' value='Search'>
+   </form>
+</div>
+
+-->
 
 
 
