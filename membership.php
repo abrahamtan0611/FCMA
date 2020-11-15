@@ -1,18 +1,21 @@
 <?php
-	include("Include/dtb.php");
 	$customerID = $_SESSION['uid'];
-	$sqlget = "SELECT orderdb.quantity, inventorydb.price from orderdb, inventorydb WHERE orderdb.customerID = $customerID AND orderdb.menuID = inventorydb.menuID";
-	$sqldata = mysqli_query($conn, $sqlget) or die("error getting data");
+	
+	$sql = "Select totalAmount FROM orderdb WHERE userID = $customerID AND paymentStatus!='' AND paymentMethod!=''";
+	
+	$query = mysqli_query($conn, $sql) or die("error getting data");
 	
 	$total = 0;
-	while($row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)){
-		$total += $row['price'];
+	while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)){
+		$total += $row['totalAmount'];
 	}
 	
 	$rank = intval($total/500);
+	if ($rank > 5){
+		$rank = 5;
+	}
 	$_SESSION['rank'] = $rank;
-	$update = "Update userdb SET TotalPurchased = $total, MembershipRank = $rank WHERE customerID = $customerID";
-	$sqldata2 = mysqli_query($conn, $update) or die("error getting data");
 	
-	$conn->close();
+	$update = "Update userdb SET totalPurchased = $total, membershipRank = $rank WHERE userID = $customerID";
+	$update_query = mysqli_query($conn, $update) or die("error getting data2");
 ?>
