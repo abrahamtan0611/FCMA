@@ -16,7 +16,7 @@
 	require 'Include/dtb.php';
 	
 	// get all information based on userID
-	$sql = "SELECT * FROM userdb WHERE customerID=?";
+	$sql = "SELECT * FROM userdb WHERE userID=?";
 	$stmt = mysqli_stmt_init($conn);
 	if(!mysqli_stmt_prepare($stmt,$sql)){
 		echo '<script type="text/javascript">
@@ -98,7 +98,8 @@
 						mysqli_stmt_close($stmt);
 						$_SESSION['username'] = $_POST['username'];
 						echo '<script type="text/javascript">
-							alert("Account details are sucessfully updated.");
+							alert("Account details are successfully updated.");
+							window.location.href="index.php";
 						</script>';
 						exit();
 					}
