@@ -6,6 +6,9 @@ var btn = document.getElementById("UploadBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+//Bool value to show hidden order table
+var bool=false;
+
 function redirect(){
 	window.location="edit_inventory.php";
 }
@@ -55,14 +58,15 @@ function deleteData(e){
 
 //connect to the edit_order page from orderManagement
 function editSortOrder(e){
+	alert("Succesfully Added");
 	var extract_orderid = e.substring(e.indexOf("-")+1, e.indexOf(":"));
 	var extract_productid = e.substring(e.indexOf(":")+1);
 	$.ajax({
 		type: "POST",
 		url:'ajax.php',
 		data:{editorderid:extract_orderid, editproductid:extract_productid},
-		success:function(html){
-			window.location.href = 'edit_order.php';
+		success:function(html){				
+			location.reload();
 		}
 	});
 }
@@ -198,7 +202,21 @@ function displayOnDelivery(){
 	document.getElementById("onDelivery").style.display="block";
 }
 
-
+/** Hide and show hidden order table **/
+function showDetails(e){	
+	if(bool==false){
+		var extract_hiddenId = e.substring(e.indexOf(":")+1);
+		document.getElementById(extract_hiddenId).style.display="block";
+		document.getElementById(e).innerHTML="Show Less";
+		bool=true;
+	}else{
+		var extract_hiddenId = e.substring(e.indexOf(":")+1);
+		document.getElementById(extract_hiddenId).style.display="none";
+		document.getElementById(e).innerHTML="Show More";
+		bool=false;
+	}
+	
+}
 
 var loadFile = function(event){
 	var image = document.getElementById('upload_img');

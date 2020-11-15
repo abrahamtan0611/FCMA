@@ -52,9 +52,26 @@
 	
 	if (isset($_POST['editorderid']) && isset($_POST['editproductid'])) {
 		session_start();
+		include("Include/dtb.php");
 		$_SESSION['editOrderID'] = $_POST['editorderid'];
 		$_SESSION['editProductID'] = $_POST['editproductid'];
-		
+		$editorderid=$_POST['editorderid'];
+		$pending="pending";
+		$done="done";
+		$chkStatus="Select paymentStatus from orderdb where orderID='$editorderid'";
+		//$chkStatus="UPDATE orderdb SET paymentStatus='$pending' where orderID='$editorderid'";
+		$sqldata = mysqli_query($conn, $chkStatus);
+		$row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC);
+		if($row['paymentStatus']=="pending"){
+			$sql="UPDATE orderdb SET paymentStatus='$done' where orderID='$editorderid'";
+			mysqli_query($conn, $sql)or die(mysqli_error($conn));
+			mysqli_close($conn);
+		}else{
+			$sql="UPDATE orderdb SET paymentStatus='$pending' where orderID='$editorderid'";
+			mysqli_query($conn, $sql)or die(mysqli_error($conn));
+			mysqli_close($conn);
+		}
+				
 	}
 	
 	if(isset($_POST['menuID'])){
