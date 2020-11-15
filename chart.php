@@ -15,6 +15,15 @@
 require 'Include/dtb.php';
     require 'Include/header.php';
     
+echo'
+<div>
+<input type ="date" name = "from_date" id = "from_date"/>
+&nbsp;
+<input type ="date" name = "to_date" id = "to_date"/>
+
+</div>
+';
+    
     //SELECT GETDATE() 'Today', FORMAT(deliveryDate,'MMMM') 'Month Name'
     
     //SELECT RIGHT(CONVERT(VARCHAR(8), deliveryDate, 3), 5) AS [MM/YY]
