@@ -5,14 +5,15 @@
 		$title = $_POST['ftitle'];
 		$desc = $_POST['fdesc'];
 		$price = $_POST['fprice'];
-		$quantity = 1;
+		$stock = $_POST['stock'];
+		$iprice = $_POST['iprice'];
 		
 		$image = $_FILES['myfile']['tmp_name'];
 		$img = file_get_contents($image);
-		$sql = "INSERT INTO inventorydb(image, name, price, quantity, description) VALUES(?,?,?,?,?)";
+		$sql = "INSERT INTO productdb(image, name, price, initialPrice, stock, description) VALUES(?,?,?,?,?,?)";
 		
 		$stmt = mysqli_prepare($conn, $sql);
-		mysqli_stmt_bind_param($stmt, "ssdis",$img, $title, $price, $quantity, $desc);
+		mysqli_stmt_bind_param($stmt, "ssdis",$img, $title, $price, ,$iprice, $stock, $desc);
 		mysqli_stmt_execute($stmt);
 		
 		mysqli_close($conn);

@@ -11,7 +11,7 @@
  <!-- FEATURE PRODUCT -->
 <div class="feature">
 	<div class="small-container">
-		<h2 class="title">Products</h2>
+		<h2 class="title">Catering Menu</h2>
 		<div class="row">
 			<?php
 				while($row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)){

@@ -2,8 +2,19 @@
 	session_start();
 	require 'Include/dtb.php';
 	require 'Include/header.php';
-	//$sql = "SELECT * FROM orderdetailsdb od JOIN orderdb o ON od.orderId=o.orderID order by od.orderID, deliveryDate, deliveryTime ASC";
-	//$sql = "SELECT * FROM orderdb JOIN orderdetailsdb ON orderdb.orderID = orderdetailsdb.orderID JOIN userdb ON orderdb.userID = userdb.userID JOIN productdb ON orderdetailsdb.productID = productdb.productID order by orderdetailsdb.orderID, deliveryDate, deliveryTime ASC";
+	
+	// check for session
+	if ($_SESSION['type'] == 2){
+		$userID = $_SESSION['uid'];
+		$rank = $_SESSION['rank'];
+	}else{
+		echo '<script type="text/javascript">
+					alert("Unauthorised Access!");
+					window.location = "index.php";
+				</script>';
+		exit();
+	}
+	
 	$sql = "SELECT * FROM orderdb JOIN userdb ON orderdb.userID = userdb.userID order by deliveryDate ASC";
 	$sqldata = mysqli_query($conn, $sql) or die("error getting data");
 	?>
@@ -74,34 +85,9 @@
 
 ?>
 </div>
-
-	
-	
-	
-	
-<!--
-<div id="orderDetailsContainer">
-				<table>
-					<!--Menu name, Quantity, SubTotal, Sepcial Description
-					<tr>
-						<th>Menu name</th>
-						<th>Quantity</th>
-						<th>SubTotal</th>
-						<th>Special Description</th>
-					</tr>
-					<?
-					$sql3 = "SELECT * FROM orderdetailsdb JOIN productdb ON orderdetailsdb.productID = productdb.productID order by orderdetailsdb.orderID";
-					$sqldata2 = mysqli_query($conn, $sql3);
-					while($row4 = mysqli_fetch_array($sqldata2, MYSQLI_ASSOC)){ ?>
-						<tr>
-							<td><?php echo $row4['name']; ?></td>
-							<td><?php echo $row4['quantity']; ?></td>
-							<td><?php echo $row4['subtotal']; ?></td>
-							<td><?php echo $row['special_description']; ?></td>
-						</tr>
--->	
-	
-	
+<?php
+include_once "Include/footer.php"; 
+?>
 	
 	
 	
