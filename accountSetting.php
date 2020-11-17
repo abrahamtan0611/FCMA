@@ -113,6 +113,7 @@
 <?php
 	require 'Include/header.php';
 ?>
+<section id="content">
 <div class="profile-input-field">
 	<h3>Account Settings</h3>
 	<form id="updateProfile" method="POST">
@@ -144,5 +145,8 @@
 		<button type="reset" name="update-reset" class="btn btn-primary">Reset</button>
 	</form>
 </div>
-</body>
-</html>
+</section>
+</div>
+<?php
+	include_once "Include/footer.php"; 
+?>

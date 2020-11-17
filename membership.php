@@ -1,7 +1,7 @@
 <?php
 	$customerID = $_SESSION['uid'];
 	
-	$sql = "Select totalAmount FROM orderdb WHERE userID = $customerID AND paymentStatus!='' AND paymentMethod!=''";
+	$sql = "Select totalAmount FROM orderdb WHERE userID = $customerID AND paymentStatus='done' AND paymentMethod!=''";
 	
 	$query = mysqli_query($conn, $sql) or die("error getting data");
 	

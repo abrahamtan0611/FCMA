@@ -6,9 +6,10 @@
 
 <?php
 	include_once("Include/dtb.php");
-	$sqlget = "SELECT * FROM productdb LIMIT 3";
+	$sqlget = "SELECT * FROM productdb ORDER BY totalSales DESC LIMIT 3";
 	$sqldata = mysqli_query($conn, $sqlget) or die("error getting data");	
 ?>
+
 <!-- BANNER -->
 <div class="header">
 	<div class="container">
@@ -28,7 +29,7 @@
 <!-- FEATURE PRODUCT -->
 <div class="feature">
 	<div class="small-container">
-		<h2 class="title">Featured Products</h2>
+		<h2 class="title">Hot Sell!</h2>
 		<div class="row">
 			<?php
 				while($row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)){
@@ -49,20 +50,21 @@
 	<div class="container">
 		<h2 class="title"> Customer Feedbacks</h2>
 		<div class="row">
-			<div class="col-3">
-				<p>This is feedback item.hajsdhgajkhdajkdh ajkdhasjkdhaskjdhaskjahdkjhdasgd hasgdhasgdhjasgdahjgahjgah jdghjad gahjdgahjagh jsdgahjdgajhdgajhdgaduhag</p>
-				<h3>Name</h3>
-			</div>
-			<div class="col-3">
-				<p>This is feedback item.hajsdhgajkhdaj kdhajkdh asjkdhaskjdha skjahdkjh</p>
-				<h3>Name</h3>
-			</div>
-			<div class="col-3">
-				<p>This is feedback item.hajsdhga jkhdajkd hajkdhas jkdha skjdhaskj ahdkjh</p>
-				<h3>Name</h3>
-			</div>
+			<?php
+			$result = 'SELECT customerName, replyDescription FROM feedbackdb ORDER BY feedbackID DESC LIMIT 3';
+			if ($result = $conn -> query($result))
+			{
+				while($row = $result -> fetch_array()){
+					echo '<div class="col-3">';
+					echo '<p>'.$row['replyDescription'].'</p>';
+					echo '<h3>'.$row['customerName'].'</h3>';
+					echo '</div>';	
+				}
+			}
+			?>
 		</div>
 	</div>
+</div>
 </div>
 <?php
  include_once "Include/footer.php"; 

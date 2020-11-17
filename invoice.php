@@ -5,6 +5,8 @@ require 'fpdf17/fpdf.php';
 require 'Include/dtb.php';
 
 $id = $_SESSION['orderID'];
+$dis = $_SESSION['disAmount'];
+$final = $_SESSION['total'];
 
 $count = mt_rand(000001,999999);
 //A4 width : 219mm
@@ -115,12 +117,12 @@ $pdf->Cell(30 ,5,$totalAmount,1,1,'R');//end of line
 $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(20 ,5,'Discount',0,0);
 $pdf->Cell(8 ,5,'RM',1,0);
-$pdf->Cell(30 ,5,'-35.00',1,1,'R');//end of line
+$pdf->Cell(30 ,5,$dis,1,1,'R');//end of line
 
 $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(20 ,5,'Total',0,0);
 $pdf->Cell(8 ,5,'RM',1,0);
-$pdf->Cell(30 ,5,'1,000',1,1,'R');//end of line
+$pdf->Cell(30 ,5,$final,1,1,'R');//end of line
 
 //output the result
 $pdf->Output('Receipt/receipt.pdf','F');

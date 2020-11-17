@@ -1,28 +1,54 @@
-<!doctype html public "-//w3c//dtd html 3.2//en">
-<html>
-
-<head>
-    <title>Bar Chart of Sales/profit</title>
-    <style>
-
-
-    </style>
-
-</head>
-
-
 <?Php
+session_start();
 require 'Include/dtb.php';
-    require 'Include/header.php';
+require 'Include/header.php';
     
-echo'
-<div>
-<input type ="date" name = "from_date" id = "from_date"/>
-&nbsp;
-<input type ="date" name = "to_date" id = "to_date"/>
+  
+ //$year = 2020;
+//(paymentStatus != 'pending' && YEAR(deliveryDate) = $year)
+//$year = datalistvalue
+    if($stmt = $conn->query("SELECT DATE_FORMAT(deliveryDate, '%M %Y'), (totalAmount-totalOriPrice) AS Profit, totalAmount AS Sales FROM orderdb WHERE (paymentStatus != 'pending') GROUP BY YEAR(deliveryDate), MONTHNAME(deliveryDate) ORDER BY deliveryDate")){
+  
 
-</div>
-';
+	$php_data_array = Array(); // create PHP array
+
+		while ($row = $stmt->fetch_row()) {
+		   $php_data_array[] = $row; // Adding to array
+		}
+
+	}else{
+		echo $conn->error;
+	}
+	echo'
+	<div id="content">
+	<div>
+	<input type ="date" name = "from_date" id = "from_date"/>
+	&nbsp;
+	<input type ="date" name = "to_date" id = "to_date"/>
+
+	</div>
+	<br>
+	';
+    
+
+?>
+<select name="year" class="form-control" id="year">
+    <option value="">Select Year</option>
+    <option value="2016">2016</option>
+    <option value="2017">2017</option>
+    <option value="2018">2018</option>
+    <option value="2019">2019</option>
+    <option value="2020">2020</option>
+    <?php
+	foreach($stmt as $row)
+	{
+		echo '<option value="'.$row[$year].'">'.$row[$year].'</option>';
+	}
+	?>
+</select>
+<button type="submit" name="submit" id="submit"onClick="myFunction();">Filter</button>
+<br>
+<?php
     
     //SELECT GETDATE() 'Today', FORMAT(deliveryDate,'MMMM') 'Month Name'
     
@@ -33,20 +59,7 @@ echo'
     // mysql> SELECT DATE_FORMAT('2009-10-04 22:23:00', '%W %M %Y');
     //outputs  -> 'Sunday October 2009'
 
-if($stmt = $conn->query("SELECT DATE_FORMAT(deliveryDate, '%M %Y'), (totalAmount-totalOriPrice) AS Profit, totalAmount AS Sales FROM orderdb WHERE paymentStatus != 'pending' GROUP BY YEAR(deliveryDate), MONTHNAME(deliveryDate) ORDER BY deliveryDate")){
 
-  //echo "No of records : ".$stmt->num_rows."<br>";
-$php_data_array = Array(); // create PHP array
-  //echo "<table>
-//<tr> <th>Month</th><th>Sale</th><th>Profit</th></tr>";
-while ($row = $stmt->fetch_row()) {
-  // echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
-   $php_data_array[] = $row; // Adding to array
-   }
-//echo "</table>";
-}else{
-echo $conn->error;
-}
 //print_r( $php_data_array);
 // You can display the json_encode output here. 
 //echo json_encode($php_data_array); 
@@ -54,7 +67,7 @@ echo $conn->error;
 // Transfor PHP array to JavaScript two dimensional array 
 echo "<script>
         var my_2d = ".json_encode($php_data_array)."
-</script>";
+		</script>";
 ?>
 
 
@@ -62,22 +75,6 @@ echo "<script>
 
 </div>
 <br><br>
-<!--
-<div id = "date">
- <form method='post' action=''>
-     Start Date <input type='text' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo $_POST['fromDate']; ?>'>
- 
-     End Date <input type='text' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
-
-     <input type='submit' name='but_search' value='Search'>
-   </form>
-</div>
-
--->
-
-
-
-
 <script type="text/javascript">
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {
@@ -111,8 +108,24 @@ echo "<script>
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
+	
+</script>
+<script>
+    $(document).ready(function() {
+
+        $('#year').change(function() {
+            var year = $(this).val();
+            if (year != '') {
+                load_monthwise_data(year, 'Month Wise Profit Data For');
+            }
+        });
+
+    });
 
 </script>
-</body>
+</div>
+</div>
+<?php
+include_once "Include/footer.php"; 
+?>
 
-</html>

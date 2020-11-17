@@ -1,6 +1,8 @@
 <?php
 require('PHPMailer/PHPMailerAutoload.php');
 
+$email = $_SESSION['email'];
+
 $mail = new PHPMailer;
 $mail->isSMTP();
 $mail->SMTPAuth = true; 
@@ -14,7 +16,7 @@ $mail->setFrom('no-reply@fcms.com', 'no-reply@fcms.com');
 $mail->Subject = 'Receipt';
 $mail->Body = 'Thank you for your purchase! Our operation team will verify the payment and get in touch with you.';
 $mail->addAttachment('Receipt/receipt.pdf');  
-$mail->AddAddress('abrahamtan0611@outlook.com');
+$mail->AddAddress($email);
 
 $mail->Send();
 ?>

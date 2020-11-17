@@ -1,16 +1,6 @@
 <?php
 	// start the session()
 	session_start();
-	if (!empty($_SESSION['uid'])){
-		$custId = $_SESSION['uid'];
-	}else{
-		echo '<script type="text/javascript">
-					alert("Invalid Session!");
-					window.location = "index.php";
-				</script>';
-		exit();
-	}
-	
 	require "Include/header.php";
 	
 	include ("Include/dtb.php");
@@ -18,23 +8,29 @@
 		$sqldata = mysqli_query($conn, $sqlget) or die("error getting data");
 ?>
 
-<div class="testing">
-<h1>Feedbacks</h1>
-
-<table>
+<section id="content">
+<div class="replyFeedback-page">
+<h3 class="feedback-h3">Customer's Feedbacks</h3>
+<table class="cart-table" border="1">
 	<tr>
-		<th>Name</th>
-		<th>Feedbacks</th>
-		<th>Reply</th>
+		<th>No.</th>
+		<th style="text-align:center;">Name</th>
+		<th style="text-align:center;">Feedback Date</th>
+		<th style="text-align:center;">Customer's Reply</th>
+		<th>Action</th>
 	</tr>
 	
 <?php
+	$count = 1;
 	while($row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)){
 ?>
 	<tr>
+		<td><?php echo $count. "."?></td>
 		<td><?php echo $row["customerName"]?></td>
-		<td><?php echo $row["feedbackDesc"]?></td>
-		<td><a href="mailto: <?php echo $row["customerEmail"]?>">Reply Feedback </a></td>
+		<td><?php echo $row["feedbackDate"]?></td>
+		<td><?php echo $row["replyDescription"]?></td>
+		<td><a style="color: #0c71e0; font-weight:bold;" href="mailto: <?php echo $row["customerEmail"]?>">Reply Feedback </a></td>
+		<?php $count++; ?>
 	</tr>
 <?php
 	}
@@ -42,3 +38,8 @@
 
 </table>
 </div>
+</section>
+</div>
+<?php
+	include_once "Include/footer.php"; 
+?>
