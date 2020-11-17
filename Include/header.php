@@ -50,22 +50,42 @@
 	</script>
 </head>
 <body>
-	<nav>
+	<nav id="header_c">
 		<ul class="nav-bar">
 			<li class="logo"><a href="index.php">FoodEdge</a></li>
-			<li class="item"><a href="product.php">Menu</a></li>
-			<li class="item"><a href="#">About Us</a></li>
+			<?php
+			include_once("Include/dtb.php");
+			if (isset($_SESSION['uid'])){
+				$type = $_SESSION['type'];
+				if ($_SESSION['type'] == 1){
+					echo '<li class="item"><a href="product.php">Menu</a></li>';
+				}else if($type == 2){
+					echo '<li class="item"><a href="edit_inventory.php">Edit Menu</a></li>';
+					echo '<li class="item"><a href="orderManagement.php">View Client Order</a></li>';
+					echo '<li class="item"><a href="receive_feedback.php">Reply Feedback</a></li>';
+				}else if ($type == 3){
+					echo '<li class="item"><a href="chart.php">View Profit/Sales</a></li>';
+				}
+			}	
+			?>
 			<?php 
 			if (isset($_SESSION['uid']))
 			{
+				include("membership.php");
+				$tierList = array("Unranked", "Bronze", "Silver", "Gold", "Platinum", "Diamond");
+				$index = $_SESSION['rank'];
+				$membershipRank = $tierList[$index];
 				$username = $_SESSION['username'];
-				if (isset($_SESSION['type']))
+				
+				if (isset($type))
 				{
-					echo '<li class="item"><a href="cart.php">Cart</a></li>';
+					if ($type == 1){
+						echo '<li class="item"><a href="cart.php">Cart</a></li>';
+						echo '<li class="item"><a href="status.php">My Orders</a></li>';
+					}
 				}
-				echo '<li class="item"><a href="accountSetting.php">Settings</a></li>';
 				echo '<li class="item"><i class="material-icons">account_circle</i></li>';
-				echo '<li class="item username"><a class="username-hover">'.$username.'</a></li>';
+				echo '<li class="item"><a href="accountSetting.php"><span id="rank">'.$membershipRank."</span> | ".$username.'</a></li>';
 				echo '<li class="item button"><a href="Include/logout.php">Logout</a></li>';
 			}else{
 				echo '<li class="item button"><a href="register.php">Register</a></li>';
@@ -73,5 +93,30 @@
 			}
 			?>
 			<li class="toggle"><span class="bars"></span></li>
+			<script>
+				var rankColor = document.getElementById("rank");
+				var data = <?php echo json_encode($membershipRank, JSON_HEX_TAG); ?>;
+				if(data == "Unranked")
+				{
+					rankColor.style.opacity = "0.4";
+				}
+				else if(data == "Bronze")
+				{
+					rankColor.style.color = "#8B4513";
+				}else if(data == "Silver")
+				{
+					rankColor.style.color = "#DCDCDC";
+					rankColor.style.opacity = "0.8";
+				}else if(data == "Gold")
+				{
+					rankColor.style.color = "#DAA520";
+				}else if(data == "Platinum")
+				{
+					rankColor.style.color = "#40E0D0";
+				}else if(data == "Diamond")
+				{
+					rankColor.style.color = "#4169E1";
+				}
+			</script>
 		</ul>
 	</nav>
