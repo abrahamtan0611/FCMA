@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2020 at 07:52 AM
+-- Generation Time: Nov 18, 2020 at 03:12 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -20,26 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `fcms`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chart_data`
---
-
-CREATE TABLE `chart_data` (
-  `month` text NOT NULL,
-  `sale` int(50) NOT NULL,
-  `profit` int(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `chart_data`
---
-
-INSERT INTO `chart_data` (`month`, `sale`, `profit`) VALUES
-('september', 49, 25),
-('october', 33, 15);
 
 -- --------------------------------------------------------
 
@@ -65,7 +45,8 @@ INSERT INTO `feedbackdb` (`feedbackID`, `feedbackDate`, `customerName`, `custome
 (4, '2020-11-13', 'Alan', '0', 'Service is awesome. Website is user friendly. '),
 (5, '2020-11-16', 'Abraham', 'abrahamtan0611@outlook.com', 'The food are delicious. The service is great, receive my services on time. '),
 (6, '2020-11-16', 'Didier', 'didier@gmail.com', 'Love the service! '),
-(7, '2020-11-16', 'tiong', 'test@test.com', '123');
+(7, '2020-11-16', 'tiong', 'test@test.com', '123'),
+(8, '2020-11-17', 'Alan', 'alan@alan.com', 'nice.');
 
 -- --------------------------------------------------------
 
@@ -90,7 +71,6 @@ CREATE TABLE `orderdb` (
 --
 
 INSERT INTO `orderdb` (`orderID`, `userID`, `deliveryTime`, `deliveryDate`, `address`, `totalOriPrice`, `totalAmount`, `paymentStatus`, `paymentMethod`) VALUES
-(14, 9, '12:12:00', '2020-11-20', '1234, Jalan ABC, Taman ABC, 93350 KCH SWK', '218.00', '850.00', 'done', 'online_banking'),
 (23, 2, '13:28:00', '2020-11-12', 'This is abraham address.', '500.00', '1000.00', 'pending', 'online_banking'),
 (55, 2, '15:00:00', '2019-09-20', '', '120.00', '100.00', '', ''),
 (56, 1, '10:24:19', '2020-08-29', '', '200.00', '1300.00', '', ''),
@@ -100,7 +80,8 @@ INSERT INTO `orderdb` (`orderID`, `userID`, `deliveryTime`, `deliveryDate`, `add
 (99, 2, '19:12:00', '2020-08-21', 'DF', '200.00', '500.00', '', ''),
 (121, 5, '00:08:00', '2020-07-14', '', '350.00', '650.00', '', ''),
 (122, 9, '08:00:00', '2020-11-24', 'abcd', '64.00', '720.00', 'done', 'online_banking'),
-(123, 9, '15:33:00', '2020-11-17', '123', '48.00', '42.00', 'pending', 'online_banking');
+(123, 9, '15:33:00', '2020-11-17', '123', '48.00', '42.00', 'pending', 'online_banking'),
+(124, 9, '12:12:00', '2020-11-26', 'asda', '0.00', '56.00', '', '');
 
 -- --------------------------------------------------------
 
@@ -128,7 +109,8 @@ INSERT INTO `orderdetailsdb` (`productID`, `orderID`, `quantity`, `subtotal`, `s
 (1, 15, 1, '60.00', 'No tomato'),
 (1, 15, 1, '60.00', 'testing instruction'),
 (2, 122, 10, '800.00', ''),
-(1, 123, 1, '60.00', '123');
+(1, 123, 1, '60.00', '123'),
+(2, 124, 1, '80.00', 'ssd');
 
 -- --------------------------------------------------------
 
@@ -261,13 +243,13 @@ ALTER TABLE `userdb`
 -- AUTO_INCREMENT for table `feedbackdb`
 --
 ALTER TABLE `feedbackdb`
-  MODIFY `feedbackID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `feedbackID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orderdb`
 --
 ALTER TABLE `orderdb`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `productdb`
