@@ -1,20 +1,3 @@
-<!doctype html public "-//w3c//dtd html 3.2//en">
-<html>
-
-<head>
-    <title>Bar Chart of Sales/profit</title>
-    <style>
-
-
-    </style>
-
-    <!--    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
--->
-</head>
-
-
-
 <?Php
 require 'Include/dtb.php';
 require 'Include/header.php';
@@ -48,10 +31,6 @@ while ($row = $stmt->fetch_row()) {
 
 ?>
 
-
-<h2 style="text-align:center">Food Edge: Month-wise Profit vs Sales information for year: &nbsp;<?php echo $year; ?></h2>
-<h4> Use the below list to filter by the year: </h4>
-
 <!--
 <form method="post" action="<?php //echo $_SERVER['PHP_SELF'];?>">
     <input list="year" name="year">
@@ -68,8 +47,11 @@ while ($row = $stmt->fetch_row()) {
 
 
 -->
-
+<section id="content">
+<div class="replyFeedback-page" style="height:200%;">
+<h3 class="feedback-h3">Food Edge: Month-wise Profit vs Sales information for year: &nbsp;<?php echo $year; ?></h3>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+	<h5> Use the below list to filter by the year: </h5>
     <?php
    $query = mysqli_query($conn, "SELECT DISTINCT YEAR(deliveryDate) AS year from orderDb");
    echo "<input type='search' name = 'year' list = 'year'/>";
@@ -90,9 +72,10 @@ echo "<script>
 </script>";
 ?>
 
-<div id="control1"></div>
-<div id="chart_div"></div>
+<div id="chart_div" style="height: 500px; position: relative; left:50%; transform: translateX(-50%);">div>
 <br><br>
+</div>
+</section>
 
 
 <script type="text/javascript">
@@ -129,29 +112,12 @@ echo "<script>
                 minValue: 0
             }
         };
-        /*
-                var yearPicker = new google.visualization.ControlWrapper({
-                    'controlType': 'CategoryFilter',
-                    'containerId': 'control1',
-                    'options': {
-                        'filterColumnLabel': 'Month',
-                        'ui': {
-                            'labelStacking': 'vertical',
-                            'allowTyping': false,
-                            'allowMultiple': false,
-                            'allowNone': false
-                        }
-                    },
-                    'state': {
-                        selectedValues: ['October']
-                    }
-                });
-        */
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
 
 </script>
-</body>
-
-</html>
+</div>
+<?php
+	include_once "Include/footer.php"; 
+?>
