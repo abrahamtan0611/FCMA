@@ -3,7 +3,7 @@ Step 2: Import fcms.sql into the database that is created from step 1 called fcm
 
 Note:
 Admin Account
-	Email: admin@admin.com
+	Email: admin@fcms.com
 	Password: admin
 Manager Account
 	Email: manager@manager.com
